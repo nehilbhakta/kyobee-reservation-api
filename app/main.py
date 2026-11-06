@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+import os
 
 from .database import SessionLocal, engine, Base
 from . import schemas, crud
@@ -11,6 +13,22 @@ app = FastAPI(
     title="Kyobee Reservation API",
     version="1.0.0",
     description="A demo REST API for reservations built with FastAPI + SQLAlchemy.",
+)
+
+# CORS: open for Swagger-docs / browser use. Set CORS_ORIGINS to a
+# comma-separated allow-list to restrict it; default "*" (docs use).
+CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "*").strip()
+allow_origins = (
+    ["*"]
+    if CORS_ORIGINS == "*"
+    else [o.strip() for o in CORS_ORIGINS.split(",") if o.strip()]
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allow_origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Dependency to get DB session per request

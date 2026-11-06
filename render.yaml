@@ -1,0 +1,16 @@
+# Render Blueprint for the Kyobee Reservation API.
+# Deploy via Render Dashboard -> New -> Blueprint -> select repo
+# nehilbhakta/kyobee-reservation-api (render.yaml lives at the repo root).
+services:
+  - type: web
+    name: kyobee-reservation-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: CORS_ORIGINS
+        value: "*"
+        # Docs / browser use. Restrict later to a comma-separated allow-list
+        # of frontend origins if a frontend is added.
+      - key: PYTHON_VERSION
+        value: 3.12.3
