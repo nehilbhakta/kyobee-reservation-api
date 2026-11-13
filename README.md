@@ -3,6 +3,8 @@
 A RESTful backend service for managing reservations, waitlists, and customer check-ins.  
 Built to demonstrate API design, SQL data modeling, and clean backend architecture.
 
+**Live API docs (Swagger): https://nehilbhakta-kyobee-api.onrender.com/docs**
+
 ---
 
 ## Tech Stack
